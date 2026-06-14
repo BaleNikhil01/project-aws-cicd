@@ -18,7 +18,7 @@ phases:
       - echo "Running tests..."
       - cd day-13/simple-python-app/
       - echo "Building Docker image..."
-      - echo "$DOCKER_REGISTRY_PASSWORD" | docker login -u "$DOCKER_REGISTRY_USERNAME" --password-stdin "$DOCKER_REGISTRY_URL"
+      - echo "$DOCKER_REGISTRY_PASSWORD" | docker login -u "$DOCKER_REGISTRY_USERNAME" --password-stdin "$DOCKER_REGISTRY_URL"       #it uses echo to securely pass the password string directly into the docker login command via the pipe (|). The --password-stdin flag tells Docker to expect the password from that pipe. This is a major security best practice because it prevents the password from being logged in the shell's history.
       - docker build -t "$DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_USERNAME/simple-python-flask-app:latest" .
       - docker push "$DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_USERNAME/simple-python-flask-app:latest"
   post_build:
